@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Medico Assistant - Login</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to right, #e6f0ff, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        width: 350px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .title {
+        font-size: 22px;
+        font-weight: bold;
+        color: #007BFF;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+    input:focus, select:focus {
+        border-color: #007BFF;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 15px;
+        background: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .success {
+        color: green;
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <div class="title">Your Medico Assistant</div>
+    <div class="subtitle">Here to help you!!</div>
+
+    <!-- FORM -->
+    <input type="text" id="name" placeholder="Enter Name" required>
+    <input type="number" id="age" placeholder="Enter Age" required>
+
+    <select id="gender">
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+    </select>
+
+    <input type="text" id="phone" placeholder="Enter Phone Number" required>
+
+    <button onclick="sendOTP()">Send OTP</button>
+
+    <!-- OTP SECTION -->
+    <div id="otpSection" class="hidden">
+        <input type="text" id="otpInput" placeholder="Enter OTP">
+        <button onclick="verifyOTP()">Verify & Continue</button>
+    </div>
+
+    <div id="message"></div>
+</div>
+
+<script>
+let generatedOTP = "";
+
+function sendOTP() {
+    let phone = document.getElementById("phone").value;
+
+    if (phone.length < 10) {
+        alert("Enter valid phone number");
+        return;
+    }
+
+    // Generate random OTP
+    generatedOTP = Math.floor(1000 + Math.random() * 9000);
+
+    alert("Your OTP is: " + generatedOTP); // Simple OTP for demo
+
+    document.getElementById("otpSection").classList.remove("hidden");
+}
+
+function verifyOTP() {
+    let enteredOTP = document.getElementById("otpInput").value;
+
+    if (enteredOTP == generatedOTP) {
+        document.getElementById("message").innerHTML =
+            "<div class='success'>✅ Verified Successfully!</div>";
+
+        // Save name for next page
+        localStorage.setItem("username", document.getElementById("name").value);
+
+        // Move to next page (you will create this next)
+        setTimeout(() => {
+            window.location.href = "/terms";
+        }, 1000);
+
+    } else {
+        alert("Invalid OTP ❌");
+    }
+}
+</script>
+
+</body>
+</html>

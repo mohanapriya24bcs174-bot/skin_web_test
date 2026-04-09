@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skin Disease Detection</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #dbeafe, #f8fbff);
+    text-align: center;
+}
+
+.container {
+    margin-top: 40px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    width: 420px;
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #007BFF;
+}
+
+p {
+    color: #555;
+    font-size: 14px;
+}
+
+/* Upload */
+input[type="file"] {
+    margin-top: 10px;
+}
+
+/* Button */
+button {
+    padding: 12px 25px;
+    margin-top: 15px;
+    background: linear-gradient(45deg, #007BFF, #00c6ff);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Image preview */
+#preview {
+    margin-top: 15px;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+/* Loader */
+.loader {
+    display: none;
+    margin-top: 20px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #007BFF;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* Result */
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* Gauge */
+.gauge {
+  width: 250px;
+  margin: 20px auto;
+}
+
+.gauge-body {
+  width: 100%;
+  height: 125px;
+  background: #eee;
+  border-top-left-radius: 125px;
+  border-top-right-radius: 125px;
+  position: relative;
+  overflow: hidden;
+}
+
+.gauge-fill {
+  width: 100%;
+  height: 100%;
+  background: green;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform-origin: center top;
+  transform: rotate(0turn);
+  transition: all 1s ease-out;
+}
+
+.gauge-cover {
+  width: 200px;
+  height: 100px;
+  background: white;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h2 id="welcome"></h2>
+
+        <p>
+        Take a clear image close to the skin for better accuracy.
+        </p>
+
+        <!-- Upload (Camera + File) -->
+        <input type="file" accept="image/*" capture="environment" onchange="previewImage(event)">
+        
+        <img id="preview" src="">
+
+        <br>
+
+        <button onclick="analyze()">Analyze Image</button>
+
+        <!-- Loader -->
+        <div class="loader" id="loader"></div>
+
+        <!-- Result -->
+        <div class="result" id="result"></div>
+
+        <!-- Gauge -->
+        <div class="gauge">
+            <div class="gauge-body">
+                <div class="gauge-fill" id="gaugeFill"></div>
+                <div class="gauge-cover" id="gaugeText">0%</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+// Show username
+let username = localStorage.getItem("username") || "User";
+document.getElementById("welcome").innerText = "Hi, " + username + " 👋";
+
+// Preview image
+function previewImage(event) {
+    let reader = new FileReader();
+    reader.onload = function(){
+        document.getElementById("preview").src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+// Fake analysis (replace later with ML backend)
+function analyze() {
+    let fileInput = document.querySelector('input[type="file"]');
+    if (!fileInput.files[0]) {
+        alert("Please select an image first!");
+        return;
+    }
+
+    document.getElementById("loader").style.display = "block";
+    document.getElementById("result").innerHTML = "";
+
+    let formData = new FormData();
+    formData.append("image", fileInput.files[0]);
+
+    fetch("/predict", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("loader").style.display = "none";
+
+        if (data.error) {
+            document.getElementById("result").innerHTML = `<span style="color:red;">Error: ${data.error}</span>`;
+            return;
+        }
+
+        let disease = data.disease;
+        let confidence = data.confidence;
+
+        let color = confidence < 40 ? "green" : confidence < 70 ? "gold" : "red";
+
+        document.getElementById("result").innerHTML =
+            `<b>${disease}</b> detected with 
+             <span style="color:${color}; font-weight:bold;">
+             ${confidence}%
+             </span> confidence`;
+
+        setGauge(confidence);
+    })
+    .catch(error => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("result").innerHTML = `<span style="color:red;">Error: ${error.message}</span>`;
+    });
+}
+
+// Gauge function
+function setGauge(value) {
+    const fill = document.getElementById("gaugeFill");
+    const text = document.getElementById("gaugeText");
+
+    let percent = value / 100;
+    fill.style.transform = `rotate(${percent / 2}turn)`;
+
+    // Single color logic
+    if (value < 40) {
+        fill.style.background = "green";
+    } else if (value < 70) {
+        fill.style.background = "gold";
+    } else {
+        fill.style.background = "red";
+    }
+
+    text.innerText = value + "%";
+}
+</script>
+
+</body>
+</html>

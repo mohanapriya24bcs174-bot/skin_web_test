@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Terms & Conditions</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to right, #e6f0ff, #ffffff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        width: 400px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #007BFF;
+    }
+
+    .terms-box {
+        height: 180px;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 15px 0;
+        font-size: 14px;
+        color: #444;
+        border-radius: 8px;
+        background: #f9f9f9;
+    }
+
+    .checkbox {
+        margin: 10px 0;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    button:disabled {
+        background: gray;
+        cursor: not-allowed;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Terms & Conditions</h2>
+
+    <div class="terms-box">
+        This application is developed for educational purposes and early assistance in identifying possible skin diseases.
+
+        The predictions provided by this system are based on machine learning models and may not always be accurate.
+
+        This application is NOT a replacement for professional medical diagnosis.
+
+        Users are advised to consult a certified dermatologist for proper medical advice.
+
+        This tool is intended to raise awareness and support early detection before conditions become severe.
+    </div>
+
+    <div class="checkbox">
+        <input type="checkbox" id="agree" onchange="toggleButton()">
+        <label for="agree">I agree to the terms and conditions</label>
+    </div>
+
+    <button id="continueBtn" disabled onclick="goNext()">Continue</button>
+</div>
+
+<script>
+function toggleButton() {
+    let checkbox = document.getElementById("agree");
+    document.getElementById("continueBtn").disabled = !checkbox.checked;
+}
+
+function goNext() {
+    window.location.href = "/main"; // next page
+}
+</script>
+
+</body>
+</html>
