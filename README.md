@@ -1,6 +1,6 @@
 # Deep Learning-Based Multi-Class Skin Disease Classification Through CNN, Deep CNN, and MobileNetV2
 
-## 📌 Abstract
+##  Abstract
 Skin diseases are prevalent worldwide, and their diagnosis is challenging due to similar visual patterns among conditions such as acne, eczema, psoriasis, atopic dermatitis, and fungal infections.
 
 This project presents an automatic multi-class skin disease classification system using deep learning. Three models are evaluated:
@@ -12,7 +12,7 @@ Results show that **MobileNetV2** achieves the highest accuracy of **45.92%**, d
 
 ---
 
-## 🔑 Keywords
+##  Keywords
 - Deep Learning  
 - CNN  
 - Deep CNN  
@@ -25,7 +25,7 @@ Results show that **MobileNetV2** achieves the highest accuracy of **45.92%**, d
 
 ---
 
-## 📖 Introduction
+##  Introduction
 Skin diseases are common, and lack of dermatology experts creates challenges in early diagnosis.
 
 This project:
@@ -43,7 +43,7 @@ This project:
 
 ---
 
-## 📚 Related Work
+##  Related Work
 - CNN models are widely used for image classification
 - Transfer learning (MobileNetV2) improves performance with small datasets
 - Class imbalance is a major challenge in medical datasets
@@ -51,18 +51,18 @@ This project:
 
 ---
 
-## ❗ Problem Statement
+##  Problem Statement
 - Similar visual patterns between diseases
 - Class imbalance in dataset
 - Limited training data
 - Need for accessible diagnostic tools
 
 **Goal:**  
-👉 Build a reliable, accessible multi-class skin disease classifier with a user-friendly web interface
+ Build a reliable, accessible multi-class skin disease classifier with a user-friendly web interface
 
 ---
 
-## ⚙️ Proposed Methodology
+##  Proposed Methodology
 Steps followed:
 1. Data collection & classification
 2. Preprocessing (resize to 224×224, normalize)
@@ -76,7 +76,7 @@ Steps followed:
 
 ---
 
-## 📊 Dataset Description
+##  Dataset Description
 - **Source:** Kaggle Skin Disease Dataset
 - **Total Classes:** 5 skin diseases
   - Acne & Rosacea
@@ -85,11 +85,11 @@ Steps followed:
   - Psoriasis
   - Fungal Infections
 
-⚠️ **Note:** Dataset is imbalanced; model handles low confidence predictions gracefully
+ **Note:** Dataset is imbalanced; model handles low confidence predictions gracefully
 
 ---
 
-## 🧹 Preprocessing & Feature Engineering
+##  Preprocessing & Feature Engineering
 - **Image Resize:** 224×224 pixels
 - **Normalization:** Pixel values normalized from [0-255] to [0-1]
 - **Augmentation:** 
@@ -100,18 +100,18 @@ Steps followed:
 
 ---
 
-## 🧠 Model Architecture
+##  Model Architecture
 
-### 🔹 CNN
+### CNN
 - Basic model for baseline comparison
 - Simple 2-3 layer architecture
 
-### 🔹 Deep CNN
+###  Deep CNN
 - More convolutional layers + dropout
 - Better feature extraction
 - Improved generalization
 
-### 🔹 MobileNetV2 (Production Model)
+###  MobileNetV2 (Production Model)
 - Pretrained on ImageNet
 - Transfer Learning approach
 - Best performance: **45.92% accuracy**
@@ -119,7 +119,7 @@ Steps followed:
 
 ---
 
-## 🧪 Experimental Setup
+##  Experimental Setup
 - **Image Size:** 224×224 pixels
 - **Batch Size:** 32
 - **Epochs:** 10
@@ -129,7 +129,7 @@ Steps followed:
 
 ---
 
-## 📈 Results & Discussion
+##  Results & Discussion
 
 | Model | Accuracy | Notes |
 |-------|----------|-------|
@@ -144,7 +144,7 @@ Steps followed:
 
 ---
 
-## 📏 Evaluation Metrics
+##  Evaluation Metrics
 - **Accuracy:** Overall correctness
 - **Precision:** False positive rate
 - **Recall:** False negative rate
@@ -153,7 +153,7 @@ Steps followed:
 
 ---
 
-## ✅ Conclusion
+##  Conclusion
 - **MobileNetV2 performs best** with 45.92% accuracy
 - Transfer learning is **highly effective** for medical image classification
 - **Dataset limitations** highlight the need for more diverse training data
@@ -161,7 +161,7 @@ Steps followed:
 
 ---
 
-## 🔮 Future Scope
+##  Future Scope
 - Expand dataset size for improved accuracy
 - Implement data balancing techniques (SMOTE, class weights)
 - Try advanced models:
@@ -176,7 +176,7 @@ Steps followed:
 
 ---
 
-## 📦 Project Structure
+##  Project Structure
 
 ```
 skin_web_test/
@@ -192,7 +192,7 @@ skin_web_test/
 
 ---
 
-## 💻 How to Run Project
+##  How to Run Project
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -229,15 +229,15 @@ skin_web_test/
    - Get instant classification with confidence score
 
 ### Features
-- 🎨 User-friendly web interface
-- 📸 Easy image upload
-- ⚡ Real-time predictions
-- 📊 Confidence scores for each prediction
-- ⚠️ Safety threshold: Predictions below 40% confidence suggest consulting a doctor
+-  User-friendly web interface
+-  Easy image upload
+-  Real-time predictions
+-  Confidence scores for each prediction
+-  Safety threshold: Predictions below 40% confidence suggest consulting a doctor
 
 ---
 
-## ⚠️ Disclaimer
+##  Disclaimer
 
 This application is **for educational and informational purposes only**. It should **NOT be used as a substitute for professional medical diagnosis or treatment**.
 
@@ -247,19 +247,19 @@ This application is **for educational and informational purposes only**. It shou
 
 ---
 
-## 📧 Contact & Support
+##  Contact & Support
 
 For questions, feedback, or bug reports, please feel free to reach out.
 
 ---
 
-## 📄 License
+##  License
 
 This project is provided "as-is" for educational purposes.
 
 ---
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Dataset sourced from Kaggle
 - TensorFlow/Keras for deep learning framework
