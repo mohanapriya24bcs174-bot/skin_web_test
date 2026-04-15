@@ -2,253 +2,502 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Skin Disease Detection</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skin Disease Detection - Medico Assistant</title>
 <style>
-body {
+* {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #dbeafe, #f8fbff);
-    text-align: center;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 16px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-radius: 15px;
+}
+
+.navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #667eea;
+    text-decoration: none;
+}
+
+.navbar-user {
+    font-size: 14px;
+    color: #6b7280;
 }
 
 .container {
-    margin-top: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
-    width: 420px;
-    margin: auto;
+    background: white;
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: slideUp 0.5s ease-out;
 }
 
-h2 {
-    color: #007BFF;
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-p {
-    color: #555;
+.card h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    color: #6b7280;
     font-size: 14px;
+    margin-bottom: 25px;
 }
 
-/* Upload */
-input[type="file"] {
-    margin-top: 10px;
+/* Upload Section */
+.upload-area {
+    border: 2px dashed #e5e7eb;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #f9fafb;
 }
 
-/* Button */
-button {
-    padding: 12px 25px;
+.upload-area:hover {
+    border-color: #667eea;
+    background: #f3f4f6;
+}
+
+.upload-icon {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.upload-text {
+    color: #374151;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.upload-hint {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+#fileInput {
+    display: none;
+}
+
+#preview {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
     margin-top: 15px;
-    background: linear-gradient(45deg, #007BFF, #00c6ff);
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-button:hover {
-    transform: scale(1.05);
+.button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
-/* Image preview */
-#preview {
-    margin-top: 15px;
-    max-width: 100%;
-    border-radius: 10px;
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* Loader */
 .loader {
     display: none;
-    margin-top: 20px;
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #007BFF;
+    width: 50px;
+    height: 50px;
+    border: 5px solid #e5e7eb;
+    border-top: 5px solid #667eea;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
     animation: spin 1s linear infinite;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 30px auto;
 }
 
 @keyframes spin {
     100% { transform: rotate(360deg); }
 }
 
-/* Result */
-.result {
+/* Results Section */
+.results-section {
+    display: none;
+}
+
+.disease-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 5px;
+}
+
+.confidence-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.confidence-high {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.confidence-medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.confidence-low {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+/* Ring Circular Progress Chart */
+.ring-container {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 20px auto;
+}
+
+.ring-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.ring-bg {
+    fill: none;
+    stroke: #e5e7eb;
+    stroke-width: 12;
+}
+
+.ring-progress {
+    fill: none;
+    stroke: url(#gradient);
+    stroke-width: 12;
+    stroke-linecap: round;
+    transform-origin: center;
+    transform: rotate(-90deg);
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ring-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.ring-percentage {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.ring-label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* Recommendations */
+.recommendations {
+    background: #f9fafb;
+    border-left: 4px solid #667eea;
+    padding: 16px;
+    border-radius: 8px;
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.6;
 }
 
-/* Gauge */
-.gauge {
-  width: 250px;
-  margin: 20px auto;
+.recommendation-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1f2937;
 }
 
-.gauge-body {
-  width: 100%;
-  height: 125px;
-  background: #eee;
-  border-top-left-radius: 125px;
-  border-top-right-radius: 125px;
-  position: relative;
-  overflow: hidden;
+.error-message {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 16px;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: none;
 }
 
-.gauge-fill {
-  width: 100%;
-  height: 100%;
-  background: green;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  transform-origin: center top;
-  transform: rotate(0turn);
-  transition: all 1s ease-out;
-}
-
-.gauge-cover {
-  width: 200px;
-  height: 100px;
-  background: white;
-  border-top-left-radius: 100px;
-  border-top-right-radius: 100px;
-  position: absolute;
-  top: 25px;
-  left: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  font-weight: bold;
+@media (max-width: 768px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .navbar-user {
+        display: none;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<div class="navbar">
+    <div class="navbar-content">
+        <div class="navbar-logo">🏥 Medico Assistant</div>
+        <div class="navbar-user" id="navUser"></div>
+    </div>
+</div>
+
 <div class="container">
-    <div class="card">
+    <div class="main-grid">
+        <!-- Upload Section -->
+        <div class="card">
+            <h2>Upload Image</h2>
+            <p class="card-subtitle">Provide a clear photo of the affected area</p>
 
-        <h2 id="welcome"></h2>
-
-        <p>
-        Take a clear image close to the skin for better accuracy.
-        </p>
-
-        <!-- Upload (Camera + File) -->
-        <input type="file" accept="image/*" capture="environment" onchange="previewImage(event)">
-        
-        <img id="preview" src="">
-
-        <br>
-
-        <button onclick="analyze()">Analyze Image</button>
-
-        <!-- Loader -->
-        <div class="loader" id="loader"></div>
-
-        <!-- Result -->
-        <div class="result" id="result"></div>
-
-        <!-- Gauge -->
-        <div class="gauge">
-            <div class="gauge-body">
-                <div class="gauge-fill" id="gaugeFill"></div>
-                <div class="gauge-cover" id="gaugeText">0%</div>
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📸</div>
+                <div class="upload-text">Click to upload image</div>
+                <div class="upload-hint">or drag and drop</div>
             </div>
+
+            <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
+            <img id="preview" alt="Preview">
+
+            <button class="button" onclick="analyze()" id="analyzeBtn">Analyze Image</button>
+            
+            <div class="error-message" id="errorMessage"></div>
         </div>
 
+        <!-- Results Section -->
+        <div class="card">
+            <h2>Diagnosis Results</h2>
+            <p class="card-subtitle">AI-Powered Analysis</p>
+
+            <div class="loader" id="loader"></div>
+
+            <div class="results-section" id="resultsSection">
+                <div class="disease-name" id="diseaseName">-</div>
+                <span class="confidence-badge" id="confidenceBadge">-</span>
+                
+                <!-- Ring Chart -->
+                <div class="ring-container">
+                    <svg class="ring-svg" viewBox="0 0 200 200">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="ring-bg" cx="100" cy="100" r="90"></circle>
+                        <circle class="ring-progress" id="ringProgress" cx="100" cy="100" r="90"></circle>
+                    </svg>
+                    <div class="ring-text">
+                        <div class="ring-percentage" id="ringPercentage">0%</div>
+                        <div class="ring-label">Confidence</div>
+                    </div>
+                </div>
+
+                <div class="recommendations" id="recommendations">
+                    <div class="recommendation-title">⚕️ Important Notice</div>
+                    <p>This is an AI-assisted analysis. Please consult with a licensed dermatologist for a professional diagnosis and treatment plan.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-
 // Show username
 let username = localStorage.getItem("username") || "User";
-document.getElementById("welcome").innerText = "Hi, " + username + " 👋";
+document.getElementById("navUser").innerText = `👤 ${username}`;
+
+// File drag and drop
+const uploadArea = document.querySelector('.upload-area');
+
+uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.style.borderColor = '#667eea';
+    uploadArea.style.background = '#f0f4ff';
+});
+
+uploadArea.addEventListener('dragleave', () => {
+    uploadArea.style.borderColor = '#e5e7eb';
+    uploadArea.style.background = '#f9fafb';
+});
+
+uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.style.borderColor = '#e5e7eb';
+    uploadArea.style.background = '#f9fafb';
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        document.getElementById('fileInput').files = files;
+        previewImage({ target: { files: files } });
+    }
+});
 
 // Preview image
 function previewImage(event) {
+    let file = event.target.files[0];
+    if (!file) return;
+
     let reader = new FileReader();
-    reader.onload = function(){
-        document.getElementById("preview").src = reader.result;
-    }
-    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = function() {
+        let preview = document.getElementById('preview');
+        preview.src = reader.result;
+        preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
 }
 
-// Fake analysis (replace later with ML backend)
+// Analyze
 function analyze() {
-    let fileInput = document.querySelector('input[type="file"]');
+    let fileInput = document.getElementById('fileInput');
+    let errorMessage = document.getElementById('errorMessage');
+    
     if (!fileInput.files[0]) {
-        alert("Please select an image first!");
+        errorMessage.textContent = '❌ Please select an image first!';
+        errorMessage.style.display = 'block';
         return;
     }
 
-    document.getElementById("loader").style.display = "block";
-    document.getElementById("result").innerHTML = "";
+    errorMessage.style.display = 'none';
+    document.getElementById('loader').style.display = 'block';
+    document.getElementById('resultsSection').style.display = 'none';
 
     let formData = new FormData();
-    formData.append("image", fileInput.files[0]);
+    formData.append('image', fileInput.files[0]);
 
-    fetch("/predict", {
-        method: "POST",
+    fetch('/predict', {
+        method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById("loader").style.display = "none";
+        document.getElementById('loader').style.display = 'none';
 
         if (data.error) {
-            document.getElementById("result").innerHTML = `<span style="color:red;">Error: ${data.error}</span>`;
+            errorMessage.textContent = `❌ Error: ${data.error}`;
+            errorMessage.style.display = 'block';
             return;
         }
 
-        let disease = data.disease;
-        let confidence = data.confidence;
-
-        let color = confidence < 40 ? "green" : confidence < 70 ? "gold" : "red";
-
-        document.getElementById("result").innerHTML =
-            `<b>${disease}</b> detected with 
-             <span style="color:${color}; font-weight:bold;">
-             ${confidence}%
-             </span> confidence`;
-
-        setGauge(confidence);
+        displayResults(data.disease, data.confidence);
     })
     .catch(error => {
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("result").innerHTML = `<span style="color:red;">Error: ${error.message}</span>`;
+        document.getElementById('loader').style.display = 'none';
+        errorMessage.textContent = `❌ Error: ${error.message}`;
+        errorMessage.style.display = 'block';
     });
 }
 
-// Gauge function
-function setGauge(value) {
-    const fill = document.getElementById("gaugeFill");
-    const text = document.getElementById("gaugeText");
+// Display results
+function displayResults(disease, confidence) {
+    document.getElementById('diseaseName').textContent = disease;
+    document.getElementById('resultsSection').style.display = 'block';
+    document.getElementById('ringPercentage').textContent = confidence + '%';
 
-    let percent = value / 100;
-    fill.style.transform = `rotate(${percent / 2}turn)`;
-
-    // Single color logic
-    if (value < 40) {
-        fill.style.background = "green";
-    } else if (value < 70) {
-        fill.style.background = "gold";
+    // Confidence badge
+    let badge = document.getElementById('confidenceBadge');
+    badge.textContent = confidence + '% Confidence';
+    
+    if (confidence < 40) {
+        badge.className = 'confidence-badge confidence-low';
+    } else if (confidence < 70) {
+        badge.className = 'confidence-badge confidence-medium';
     } else {
-        fill.style.background = "red";
+        badge.className = 'confidence-badge confidence-high';
     }
 
-    text.innerText = value + "%";
+    // Ring progress animation
+    const radius = 90;
+    const circumference = 2 * Math.PI * radius;
+    const ringProgress = document.getElementById('ringProgress');
+    
+    ringProgress.style.strokeDasharray = circumference;
+    ringProgress.style.strokeDashoffset = circumference;
+    
+    // Animate to the confidence percentage
+    const offset = circumference - (confidence / 100) * circumference;
+    setTimeout(() => {
+        ringProgress.style.strokeDashoffset = offset;
+    }, 100);
 }
 </script>
 

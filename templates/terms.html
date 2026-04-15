@@ -2,94 +2,245 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Terms & Conditions</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Conditions - Medico Assistant</title>
 <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(to right, #e6f0ff, #ffffff);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.terms-box {
+    background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    height: 280px;
+    overflow-y: auto;
+    margin: 25px 0;
+    line-height: 1.6;
+    color: #374151;
+    font-size: 14px;
+}
+
+.terms-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.terms-box::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.terms-box::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.terms-box::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.terms-content h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+.terms-content ul {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.terms-content li {
+    margin-bottom: 6px;
+}
+
+.checkbox-group {
+    margin: 25px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #667eea;
+    transition: all 0.3s ease;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-decline {
+    background: #f3f4f6;
+    color: #374151;
+    border: 2px solid #e5e7eb;
+}
+
+.btn-decline:hover {
+    background: #e5e7eb;
+}
+
+.btn-continue {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-continue:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-continue:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+@media (max-width: 600px) {
     .card {
-        background: white;
-        padding: 25px;
-        width: 400px;
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        padding: 30px 20px;
     }
-
-    h2 {
-        text-align: center;
-        color: #007BFF;
+    
+    .button-group {
+        flex-direction: column;
     }
-
-    .terms-box {
-        height: 180px;
-        overflow-y: scroll;
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin: 15px 0;
-        font-size: 14px;
-        color: #444;
-        border-radius: 8px;
-        background: #f9f9f9;
-    }
-
-    .checkbox {
-        margin: 10px 0;
-    }
-
-    button {
-        width: 100%;
-        padding: 10px;
-        background: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: 0.3s;
-    }
-
-    button:hover {
-        background: #0056b3;
-    }
-
-    button:disabled {
-        background: gray;
-        cursor: not-allowed;
-    }
+}
 </style>
 </head>
 
 <body>
 
 <div class="card">
-    <h2>Terms & Conditions</h2>
+    <div class="card-header">
+        <div class="logo">⚖️</div>
+        <h2>Terms & Conditions</h2>
+        <p class="subtitle">Please read carefully before proceeding</p>
+    </div>
 
     <div class="terms-box">
-        This application is developed for educational purposes and early assistance in identifying possible skin diseases.
+        <div class="terms-content">
+            <h3>Important Medical Disclaimer</h3>
+            <p>This application is developed for educational and supportive purposes only. It provides preliminary analysis of skin conditions based on artificial intelligence technology.</p>
 
-        The predictions provided by this system are based on machine learning models and may not always be accurate.
+            <h3>Limitations of Use</h3>
+            <ul>
+                <li>AI predictions are not 100% accurate and may require professional verification</li>
+                <li>This tool is NOT a replacement for professional medical diagnosis</li>
+                <li>Results should be confirmed by a licensed dermatologist</li>
+            </ul>
 
-        This application is NOT a replacement for professional medical diagnosis.
+            <h3>User Responsibilities</h3>
+            <ul>
+                <li>Users must consult a certified healthcare professional for medical advice</li>
+                <li>Do not rely solely on this application for treatment decisions</li>
+                <li>Seek immediate medical attention for severe conditions</li>
+            </ul>
 
-        Users are advised to consult a certified dermatologist for proper medical advice.
+            <h3>Data Privacy</h3>
+            <p>Your personal information is confidential and will not be shared with third parties without consent.</p>
 
-        This tool is intended to raise awareness and support early detection before conditions become severe.
+            <h3>Liability</h3>
+            <p>We are not liable for any medical decisions or outcomes resulting from the use of this application.</p>
+
+            <h3>Acceptance</h3>
+            <p>By using this application, you acknowledge that you have read and understood these terms.</p>
+        </div>
     </div>
 
-    <div class="checkbox">
+    <div class="checkbox-group">
         <input type="checkbox" id="agree" onchange="toggleButton()">
-        <label for="agree">I agree to the terms and conditions</label>
+        <label class="checkbox-label" for="agree">
+            I understand and agree to the terms and conditions. I will consult with a healthcare professional for medical advice.
+        </label>
     </div>
 
-    <button id="continueBtn" disabled onclick="goNext()">Continue</button>
+    <div class="button-group">
+        <button class="btn-decline" onclick="goBack()">Decline</button>
+        <button class="btn-continue" id="continueBtn" disabled onclick="goNext()">Continue</button>
+    </div>
 </div>
 
 <script>
@@ -99,7 +250,11 @@ function toggleButton() {
 }
 
 function goNext() {
-    window.location.href = "/main"; // next page
+    window.location.href = "/main";
+}
+
+function goBack() {
+    window.location.href = "/";
 }
 </script>
 
